@@ -103,7 +103,7 @@ echo   Environment name: %ROCKY_ENV_NAME%
 echo   Machine path: %ROCKY_MACHINE_PATH%
 echo   Rocky image file path: %ROCKY_IMG_PATH%
 echo   Username: %ROCKY_USER_NAME%
-set CONFIRMATION_INPUT=[input]
+set /P CONFIRMATION_INPUT=[input]
 
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
     echo Exit setup.
@@ -113,16 +113,24 @@ if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
 wsl --import %ROCKY_ENV_NAME% %ROCKY_MACHINE_PATH% %ROCKY_IMG_PATH% --version 2
 
 echo **************************************************
-echo STEP5. Update Rocky packages
+echo STEP5. Update Rocky packages (Setup by root user)
+: UPDATE_ROCKY_PACKAGE
 wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%01_update_package.sh
+wsl -t %ROCKY_ENV_NAME%
+wsl --shutdown
 
 echo **************************************************
-echo STEP6. Add default user and WSL config file
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%02_add_user_and_wsl_config.sh
+echo STEP6. Add default user and WSL config file (Setup by root user)
+: ADD_USER_AND_WSL_CONFIG
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%02_add_user_and_wsl_config.sh %ROCKY_USER_NAME%
+wsl -t %ROCKY_ENV_NAME%
+wsl --shutdown
 
 echo **************************************************
 echo STEP7. Add proxy to user config file
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh
+: ADD_PROXY_TO_USER_CONFIG
+wsl ~ d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh
+wsl -t %ROCKY_ENV_NAME%
 
 echo **************************************************
 echo Finish:
