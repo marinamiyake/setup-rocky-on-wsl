@@ -1,13 +1,5 @@
 #!/bin/bash
 
-echo ----------
-cat pwd
-echo ----------
-
-echo ----------
-cat sudo -S $1 /etc/wsl.conf
-echo ----------
-
 # Add proxy to user config file. Modify if you use proxy.
 cat <<EOF >> ~/.bashrc
 

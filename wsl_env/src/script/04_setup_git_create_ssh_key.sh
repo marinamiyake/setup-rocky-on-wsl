@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # Install git
-sudo -S $1 yum -y install git
+sudo yum install git
 
 # Create SSH key
-echo Generate SSH key. Press Enter to all the question.
-ssh-keygen
+ssh-keygen -p "" -f ~/.ssh
 echo SSH Key generated.
 echo Public key:
 cat ~/.ssh/id_rsa/
