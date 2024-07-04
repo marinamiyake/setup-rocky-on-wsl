@@ -26,6 +26,7 @@ set ROCKY_IMG_DIR=%SRC_DIR%rocky_image\
 set ROCKY_SETUP_SCRIPT_UNIX_DIR=./%SRC_DIR_NAME%/script/
 
 set INPUT_YES=Y
+set INPUT_NO=N
 @REM --------------------
 
 @REM **************************************************
@@ -140,7 +141,7 @@ wsl -t %ROCKY_ENV_NAME%
 
 : SSHKEY_CONFIRMATION
 set CONFIRMATION_INPUT=
-echo Did you add SSH public key to GitHub?（Type %INPUT_YES% to continue）
+echo Did you add SSH public key to GitHub?（%INPUT_YES% / %INPUT_NO%）
 set /P CONFIRMATION_INPUT=[input]
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
     goto SSHKEY_CONFIRMATION
@@ -154,7 +155,7 @@ set GITHUB_USER_NAME=
 echo Type username for GitHub.
 set /P GITHUB_USER_NAME=[input]
 set CONFIRMATION_INPUT=
-echo Is your GitHub account information correct?（Type %INPUT_YES% to continue）
+echo Is your GitHub account information correct?（%INPUT_YES% / %INPUT_NO%）
 echo   Email: %GITHUB_USER_EMAIL%
 echo   Username: %GITHUB_USER_NAME%
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
@@ -164,6 +165,21 @@ wsl ~ -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%05_setup_git_create_git_c
 
 : GIT_SETUP_WORKSPACE
 wsl ~ -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%06_setup_git_setup_workspace.sh
+
+echo **************************************************
+echo STEP9. Setup Ansible
+: SETUP_ANSIBLE
+set IS_OLD_ROCKY=
+echo Is this Rocky environment older than 9?（%INPUT_YES% / %INPUT_NO%）
+set /P GITHUB_USER_EMAIL=[input]
+if %CONFIRMATION_INPUT% == %INPUT_YES% (
+    set PIP_URL=https://bootstrap.pypa.io/pip/3.6/get-pip.py
+) else (
+    set PIP_URL=https://bootstrap.pypa.io/get-pip.py
+)
+
+wsl ~ -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%07_setup_ansible.sh %PIP_URL%
+wsl -t %ROCKY_ENV_NAME%
 
 echo **************************************************
 echo Finish:
