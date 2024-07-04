@@ -7,6 +7,7 @@ OS: Windows 10 or above
 ## How to run
 1. Clone this repository
 1. Copy ./wsl_env to your home directory
+1. (Only those who use proxy) Search `[CHANGEME]` prefix in the copied directory and modify the code according to your environment.
 1. Download Rocky image and move it to ./wsl_env/src/rocky_image  
    Latest Rocky9:  
      - Japan (Mirror server): https://ftp.iij.ad.jp/pub/linux/rocky/9/images/x86_64/Rocky-9-Container-Base.latest.x86_64.tar.xz  

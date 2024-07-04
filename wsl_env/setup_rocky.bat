@@ -23,6 +23,7 @@ set VM_DIR=%WORKDIR%vm\
 set SRC_DIR_NAME=src
 set SRC_DIR=%WORKDIR%%SRC_DIR_NAME%\
 set ROCKY_IMG_DIR=%SRC_DIR%rocky_image\
+set ROCKY_SETUP_SCRIPT_UNIX_DIR=./%SRC_DIR_NAME%/script/
 
 set INPUT_YES=Y
 @REM --------------------
@@ -112,7 +113,8 @@ if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
 wsl --import %ROCKY_ENV_NAME% %ROCKY_MACHINE_PATH% %ROCKY_IMG_PATH% --version 2
 
 echo **************************************************
-echo STEP5. 
+echo STEP5. Update Rocky packages
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%01_update_package.sh
 
 
 echo **************************************************
