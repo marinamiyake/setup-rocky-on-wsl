@@ -4,7 +4,7 @@
 sudo yum install git
 
 # Create SSH key
-ssh-keygen -p "" -f ~/.ssh/id_rsa
+ssh-keygen -p "" -f ~/.ssh
 echo SSH Key generated.
 echo Public key:
 cat ~/.ssh/id_rsa/
