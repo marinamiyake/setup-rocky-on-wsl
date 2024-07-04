@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Show current directory (start directory=~(changed after .bashrc file was loaded), user=created user(specified by /etc/wsl.conf))
+echo --------------------
+echo current user: 
+$user
+echo current directory: 
+pwd
+echo --------------------
+
 # Install required packages for Ansible
 sudo yum -y install python3 epel-release
 curl $1 -o get-pip.py

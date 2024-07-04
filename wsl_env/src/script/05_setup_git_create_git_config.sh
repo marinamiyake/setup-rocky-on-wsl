@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Show current directory (start directory=~(changed after .bashrc file was loaded), user=created user(specified by /etc/wsl.conf))
+echo --------------------
+echo current user: 
+$user
+echo current directory: 
+pwd
+echo --------------------
+
 # Create git config
 git config --global user.email = $1
 git config --global user.name = $2

@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Show current directory (start directory=unset, user=unset)
+echo --------------------
+echo current user: 
+$user
+echo current directory: 
+pwd
+echo --------------------
+
 # Install essential packages
 yum install -y systemd sudo passwd which vim wget glibc-langpack-ja glibc-langpack-en
 
