@@ -10,7 +10,7 @@ passwd $1
 usermod -aG wheel $1
 
 # Create WSL config file for this Rocky environment
-cat <<EOF >> /etc/yum.conf
+cat <<EOF > /etc/wsl.conf
 [boot]
 systemd=true
 
@@ -18,3 +18,7 @@ systemd=true
 default=$1
 
 EOF
+
+# Show created file
+echo /etc/wsl.conf created
+cat /etc/wsl.conf

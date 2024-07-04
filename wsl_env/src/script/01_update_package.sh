@@ -7,6 +7,8 @@ cat <<EOF >> /etc/yum.conf
 
 EOF
 
+# Show modified file
+echo /etc/yum.conf modified
 cat /etc/yum.conf
 
 # Update package

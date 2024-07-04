@@ -11,3 +11,7 @@ cat <<EOF >> ~/.bashrc
 # export no_proxy="{[CHANGEME]your proxy(e.g. http://proxy.example.com:8080/)}"
 
 EOF
+
+# Show modified file
+echo ~/.bashrc modified
+cat ~/.bashrc
