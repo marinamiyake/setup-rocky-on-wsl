@@ -148,9 +148,12 @@ if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
 )
 
 : GIT_ACCOUNT_CONFIRMATION
-set GITHUB_USER_EMAIL=
-echo Type email for GitHub.
-set /P GITHUB_USER_EMAIL=[input]
+set GITHUB_USER_EMAIL_BEF_AT_SIGN=
+echo Type email username part （berfore at sign） for GitHub.
+set /P GITHUB_USER_EMAIL_BEF_AT_SIGN=[input]
+set GITHUB_USER_EMAIL_AFT_AT_SIGN=
+echo Type email domain part （after at sign） for GitHub.
+set /P GITHUB_USER_EMAIL_AFT_AT_SIGN=[input]
 set GITHUB_USER_NAME=
 echo Type username for GitHub.
 set /P GITHUB_USER_NAME=[input]
@@ -161,7 +164,7 @@ echo   Username: %GITHUB_USER_NAME%
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
     goto GIT_ACCOUNT_CONFIRMATION
 )
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%05_setup_git_create_git_config.sh %GITHUB_USER_EMAIL% %GITHUB_USER_NAME%
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%05_setup_git_create_git_config.sh %ITHUB_USER_EMAIL_BEF_AT_SIGN% %GITHUB_USER_EMAIL_AFT_AT_SIGN% %GITHUB_USER_NAME%
 
 : GIT_SETUP_WORKSPACE
 wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%06_setup_git_setup_workspace.sh
