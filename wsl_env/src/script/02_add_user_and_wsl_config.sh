@@ -20,5 +20,7 @@ default=$1
 EOF
 
 # Show created file
-echo /etc/wsl.conf created
+echo /etc/wsl.conf created:
+echo ----------
 cat /etc/wsl.conf
+echo ----------

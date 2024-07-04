@@ -13,5 +13,7 @@ cat <<EOF >> ~/.bashrc
 EOF
 
 # Show modified file
-echo ~/.bashrc modified
+echo ~/.bashrc modified:
+echo ----------
 cat ~/.bashrc
+echo ----------
