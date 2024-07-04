@@ -39,8 +39,7 @@ if NOT %CURRENT_DIR% == %WORKDIR% (
     echo Move WSL setup tool（%WSL_SETUP_TOOL_NAME%）to your home directory.
     echo   Wrong directory（current）: %CURRENT_DIR%
     echo   Correct directory（destination）: %WORKDIR%
-    pause
-    exit
+    exit 1
 )
 
 @REM **************************************************
@@ -63,7 +62,7 @@ if exist %ROCKY_MACHINE_PATH% (
     echo [ERROR] Environment already exists
     echo +----------------------------------------------------------------------------------------------------+
     echo %ROCKY_MACHINE_PATH% already exists. Clean up old data first.
-    goto SET_ROCKY_ENV_NAME
+    exit 1
 )
 
 echo **************************************************
@@ -85,15 +84,20 @@ if NOT exist %ROCKY_IMG_PATH% (
     echo +----------------------------------------------------------------------------------------------------+
     echo Could not access to "%ROCKY_IMG_PATH%" . 
     echo Download rocky image file from website and move the file to %ROCKY_IMG_DIR% before running this tool.
-    goto SET_ROCKY_IMG_FILE
+    exit 1
 )
 
 echo **************************************************
-echo STEP3. Set username for new Rocky environment.
+echo STEP3. Set username and password for new Rocky environment.
 : SET_ROCKY_USER_NAME
 set ROCKY_USER_NAME=
 echo Type username（default regular user's name）for new Rocky environment.
 set /P ROCKY_USER_NAME=[input] 
+
+: SET_ROCKY_USER_PW
+set ROCKY_USER_PW=
+echo Type password for the user.
+set /P ROCKY_USER_PM=[input] 
 
 echo **************************************************
 echo STEP4. Import Rocky to WSL
@@ -109,7 +113,7 @@ set /P CONFIRMATION_INPUT=[input]
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
     echo Exit setup.
     pause
-    exit
+    exit 1
 )
 wsl --import %ROCKY_ENV_NAME% %ROCKY_MACHINE_PATH% %ROCKY_IMG_PATH% --version 2
 
@@ -123,14 +127,14 @@ wsl --shutdown
 echo **************************************************
 echo STEP6. Add default user and WSL config file (Setup by root user)
 : ADD_USER_AND_WSL_CONFIG
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%02_add_user_and_wsl_config.sh %ROCKY_USER_NAME%
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%02_add_user_and_wsl_config.sh %ROCKY_USER_NAME% %ROCKY_USER_PW%
 wsl -t %ROCKY_ENV_NAME%
 wsl --shutdown
 
 echo **************************************************
 echo STEP7. Add proxy to user config file
 : ADD_PROXY_TO_USER_CONFIG
-wsl ~ d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh
+wsl ~ d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh %ROCKY_USER_PW%
 wsl -t %ROCKY_ENV_NAME%
 
 echo **************************************************
