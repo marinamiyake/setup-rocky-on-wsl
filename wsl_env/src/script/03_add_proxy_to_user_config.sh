@@ -3,7 +3,7 @@
 # Show current directory (start directory=~(changed after .bashrc file was loaded), user=created user(specified by /etc/wsl.conf))
 echo --------------------
 echo current user: 
-echo $user
+echo whoami
 echo current directory: 
 pwd
 echo --------------------

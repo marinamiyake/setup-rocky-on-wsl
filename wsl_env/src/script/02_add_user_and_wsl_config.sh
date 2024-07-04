@@ -3,7 +3,7 @@
 # Show current directory (start directory=unset, user=unset)
 echo --------------------
 echo current user: 
-echo $user
+echo whoami
 echo current directory: 
 pwd
 echo --------------------
