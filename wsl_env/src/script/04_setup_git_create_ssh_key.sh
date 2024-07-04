@@ -9,13 +9,13 @@ pwd
 echo --------------------
 
 # Install git
-sudo yum install git
+sudo yum -y install git
 
 # Create SSH key
 ssh-keygen -p "" -f ~/.ssh
 echo SSH Key generated.
 echo Public key:
-cat ~/.ssh/id_rsa/
+cat ~/.ssh/id_rsa.pub
 echo Add the public key to your GitHub account.
 echo URL: 
 echo https://github.com/settings/ssh/new
