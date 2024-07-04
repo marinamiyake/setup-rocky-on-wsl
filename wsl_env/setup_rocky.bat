@@ -121,6 +121,10 @@ echo STEP6. Add default user and WSL config file
 wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%02_add_user_and_wsl_config.sh
 
 echo **************************************************
+echo STEP7. Add proxy to user config file
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh
+
+echo **************************************************
 echo Finish:
 echo Setup finished.
 echo Run "wsl ~ -d %ROCKY_ENV_NAME%" to login.
