@@ -1,0 +1,3 @@
+# Write down Rocky image version
+# e.g.
+# Rocky-9-Container-Base.latest.x86_64.tar.xz > Rocky9.4
