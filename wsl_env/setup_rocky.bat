@@ -23,6 +23,8 @@ set VM_DIR=%WORKDIR%vm\
 set SRC_DIR_NAME=src
 set SRC_DIR=%WORKDIR%%SRC_DIR_NAME%\
 set ROCKY_IMG_DIR=%SRC_DIR%rocky_image\
+
+set INPUT_YES=Y
 @REM --------------------
 
 @REM **************************************************
@@ -94,11 +96,19 @@ set /P ROCKY_USER_NAME=[input]
 echo **************************************************
 echo STEP4. Import Rocky to WSL
 : SET_ROCKY_IMG_FILE
-echo Importing Rocky to WSL
+set CONFIRMATION_INPUT=
+echo Import Rocky to WSL. To continue, type %INPUT_YES%.
 echo   Environment name: %ROCKY_ENV_NAME%
 echo   Machine path: %ROCKY_MACHINE_PATH%
 echo   Rocky image file path: %ROCKY_IMG_PATH%
 echo   Username: %ROCKY_USER_NAME%
+set CONFIRMATION_INPUT=[input]
+
+if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
+    echo Exit setup.
+    pause
+    exit
+)
 wsl --import %ROCKY_ENV_NAME% %ROCKY_MACHINE_PATH% %ROCKY_IMG_PATH% --version 2
 
 echo **************************************************
