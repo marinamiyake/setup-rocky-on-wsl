@@ -116,6 +116,9 @@ echo **************************************************
 echo STEP5. Update Rocky packages
 wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%01_update_package.sh
 
+echo **************************************************
+echo STEP6. Add default user and WSL config file
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%01_update_package.sh
 
 echo **************************************************
 echo Finish:
