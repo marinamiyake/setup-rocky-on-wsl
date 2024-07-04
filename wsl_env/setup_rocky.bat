@@ -130,7 +130,7 @@ wsl --shutdown
 echo **************************************************
 echo STEP7. Add proxy to user config file
 : ADD_PROXY_TO_USER_CONFIG
-wsl d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh %ROCKY_USER_NAME%
 wsl -t %ROCKY_ENV_NAME%
 
 echo **************************************************
