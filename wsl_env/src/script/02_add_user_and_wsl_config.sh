@@ -24,3 +24,20 @@ echo /etc/wsl.conf created:
 echo ----------
 cat /etc/wsl.conf
 echo ----------
+
+# Add host(Windows) path to mount.
+cat <<EOF >> /home/$1/.bashrc
+
+# Move to user's home directory when Rocky init process finishes.
+cd ~
+
+# Mount Host (Windows machine)
+export PATH=\$PATH:/mnt/c/WINDOWS/
+
+EOF
+
+# Show modified file
+echo /home/$1/.bashrc modified:
+echo ----------
+cat /home/$1/.bashrc
+echo ----------

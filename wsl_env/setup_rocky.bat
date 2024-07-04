@@ -130,13 +130,13 @@ wsl --shutdown
 echo **************************************************
 echo STEP7. Add proxy to user config file
 : ADD_PROXY_TO_USER_CONFIG
-wsl ~ d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh
+wsl d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh
 wsl -t %ROCKY_ENV_NAME%
 
 echo **************************************************
 echo STEP8. Setup Git
 : CREATE_SSH_KEY
-wsl ~ -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%04_setup_git_create_ssh_key.sh
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%04_setup_git_create_ssh_key.sh
 wsl -t %ROCKY_ENV_NAME%
 
 : SSHKEY_CONFIRMATION
@@ -161,10 +161,10 @@ echo   Username: %GITHUB_USER_NAME%
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
     goto GIT_ACCOUNT_CONFIRMATION
 )
-wsl ~ -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%05_setup_git_create_git_config.sh %GITHUB_USER_EMAIL% %GITHUB_USER_NAME%
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%05_setup_git_create_git_config.sh %GITHUB_USER_EMAIL% %GITHUB_USER_NAME%
 
 : GIT_SETUP_WORKSPACE
-wsl ~ -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%06_setup_git_setup_workspace.sh
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%06_setup_git_setup_workspace.sh
 
 echo **************************************************
 echo STEP9. Setup Ansible
@@ -178,13 +178,13 @@ if %CONFIRMATION_INPUT% == %INPUT_YES% (
     set PIP_URL=https://bootstrap.pypa.io/get-pip.py
 )
 
-wsl ~ -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%07_setup_ansible.sh %PIP_URL%
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%07_setup_ansible.sh %PIP_URL%
 wsl -t %ROCKY_ENV_NAME%
 
 echo **************************************************
 echo Finish:
 echo Setup finished.
-echo Run "wsl ~ -d %ROCKY_ENV_NAME%" to login.
+echo Run "wsl -d %ROCKY_ENV_NAME%" to login.
 echo **************************************************
 
 endlocal
