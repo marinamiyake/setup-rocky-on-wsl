@@ -30,9 +30,9 @@ set INPUT_NO=N
 @REM STEP0. Check WSL setup directory
 : CHECK_WSL_SETUP_DIR
 if NOT %CURRENT_DIR% == %WORKDIR% (
-    echo +----------------------------------------------------------------------------------------------------+
+    echo +--------------------------------------------------+
     echo [ERROR] Invalid work directory
-    echo +----------------------------------------------------------------------------------------------------+
+    echo +--------------------------------------------------+
     echo Move WSL setup tool（%WSL_SETUP_TOOL_NAME%）to your home directory.
     echo   Wrong directory（current）: %CURRENT_DIR%
     echo   Correct directory（destination）: %WORKDIR%
@@ -44,9 +44,9 @@ echo **************************************************
 echo STEP1_1. Set new Rocky environment name
 : SET_ROCKY_ENV_NAME
 echo Current environment list（You cannot use the same name）:
-echo ================================================================================
+echo ==================================================
 wsl -l -v
-echo ================================================================================
+echo ==================================================
 
 set ROCKY_ENV_NAME=
 echo Type name for new Rocky environment.
@@ -55,9 +55,9 @@ set /P ROCKY_ENV_NAME=[input]
 
 set ROCKY_MACHINE_PATH=%VM_DIR%%ROCKY_ENV_NAME%
 if exist %ROCKY_MACHINE_PATH% (
-    echo +----------------------------------------------------------------------------------------------------+
+    echo +--------------------------------------------------+
     echo [ERROR] Environment already exists
-    echo +----------------------------------------------------------------------------------------------------+
+    echo +--------------------------------------------------+
     echo %ROCKY_MACHINE_PATH% already exists. Clean up old data first.
     goto SET_ROCKY_ENV_NAME
 )
@@ -68,17 +68,17 @@ echo STEP1_2. Set Rocky image file for new Rocky environment
 set ROCKY_IMG_NAME=
 echo Choose rocky image name in the list for new Rocky environment. 
 echo Rocky image files you can use:
-echo ================================================================================
+echo ==================================================
 for /f %%f in ('dir "%ROCKY_IMG_DIR%\*.x86_64.tar.xz" /b') do (
   echo %%f
 )
-echo ================================================================================
+echo ==================================================
 set /P ROCKY_IMG_NAME=[input] 
 set ROCKY_IMG_PATH=%ROCKY_IMG_DIR%%ROCKY_IMG_NAME%
 if NOT exist %ROCKY_IMG_PATH% (
-    echo +----------------------------------------------------------------------------------------------------+
+    echo +--------------------------------------------------+
     echo [ERROR] File not found
-    echo +----------------------------------------------------------------------------------------------------+
+    echo +--------------------------------------------------+
     echo Could not access to "%ROCKY_IMG_PATH%" . 
     echo Download rocky image file from website and move the file to %ROCKY_IMG_DIR% before running this tool.
     goto SET_ROCKY_IMG_FILE

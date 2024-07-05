@@ -18,9 +18,9 @@ set INPUT_NO=N
 @REM STEP0. Select Rocky environment to setup
 : SET_ROCKY_ENV_NAME
 echo Choose target rocky environment name in the list: 
-echo ================================================================================
+echo ==================================================
 wsl -l -v
-echo ================================================================================
+echo ==================================================
 set ROCKY_ENV_NAME=
 set /P ROCKY_ENV_NAME=[input]
 

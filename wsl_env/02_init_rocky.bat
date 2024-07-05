@@ -18,9 +18,9 @@ set INPUT_NO=N
 @REM STEP0. Select Rocky environment to setup
 : SET_ROCKY_ENV_NAME
 echo Choose target rocky environment name in the list: 
-echo ================================================================================
+echo ==================================================
 wsl -l -v
-echo ================================================================================
+echo ==================================================
 set ROCKY_ENV_NAME=
 set /P ROCKY_ENV_NAME=[input]
 
@@ -35,6 +35,7 @@ set CONFIRMATION_INPUT=
 echo Initialize Rocky environment. 
 echo [ATTENTION] this script restarts WSL2. Save data first if you're running other environment.
 echo To continue, type %INPUT_YES%.
+set /P CONFIRMATION_INPUT=[input] 
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
     echo Setup cancelled.
     pause
