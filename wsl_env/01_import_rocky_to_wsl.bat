@@ -23,7 +23,6 @@ set VM_DIR=%WORKDIR%vm\
 set SRC_DIR_NAME=src
 set SRC_DIR=%WORKDIR%%SRC_DIR_NAME%\
 set ROCKY_IMG_DIR=%SRC_DIR%rocky_image\
-set ROCKY_SETUP_SCRIPT_UNIX_DIR=./%SRC_DIR_NAME%/script/
 
 set INPUT_YES=Y
 set INPUT_NO=N
@@ -43,8 +42,8 @@ if NOT %CURRENT_DIR% == %WORKDIR% (
     exit
 )
 
-@REM **************************************************
-echo STEP1. Set new Rocky environment name
+echo **************************************************
+echo STEP1_1. Set new Rocky environment name
 : SET_ROCKY_ENV_NAME
 
 echo Current environment list（You cannot use the same name）:
@@ -67,7 +66,7 @@ if exist %ROCKY_MACHINE_PATH% (
 )
 
 echo **************************************************
-echo STEP2. Set Rocky image file for new Rocky environment
+echo STEP1_2. Set Rocky image file for new Rocky environment
 : SET_ROCKY_IMG_FILE
 set ROCKY_IMG_NAME=
 echo Choose rocky image name in the list for new Rocky environment. 
@@ -89,14 +88,14 @@ if NOT exist %ROCKY_IMG_PATH% (
 )
 
 echo **************************************************
-echo STEP3. Set username for new Rocky environment.
+echo STEP1_3. Set username for new Rocky environment.
 : SET_ROCKY_USER_NAME
 set ROCKY_USER_NAME=
 echo Type username（default regular user's name）for new Rocky environment.
 set /P ROCKY_USER_NAME=[input] 
 
 echo **************************************************
-echo STEP4. Import Rocky to WSL
+echo STEP1_4. Import Rocky to WSL
 : SET_ROCKY_IMG_FILE
 set CONFIRMATION_INPUT=
 echo Import Rocky to WSL. To continue, type %INPUT_YES%.
@@ -114,85 +113,10 @@ if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
 wsl --import %ROCKY_ENV_NAME% %ROCKY_MACHINE_PATH% %ROCKY_IMG_PATH% --version 2
 
 echo **************************************************
-echo STEP5. Update Rocky packages (Setup by root user)
-: UPDATE_ROCKY_PACKAGE
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%01_update_package.sh
-wsl -t %ROCKY_ENV_NAME%
-wsl --shutdown
-
-echo **************************************************
-echo STEP6. Add default user and WSL config file (Setup by root user)
-: ADD_USER_AND_WSL_CONFIG
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%02_add_user_and_wsl_config.sh %ROCKY_USER_NAME%
-wsl -t %ROCKY_ENV_NAME%
-wsl --shutdown
-
-echo **************************************************
-echo STEP7. Add proxy to user config file
-: ADD_PROXY_TO_USER_CONFIG
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%03_add_proxy_to_user_config.sh %ROCKY_USER_NAME%
-wsl -t %ROCKY_ENV_NAME%
-
-echo **************************************************
-echo STEP8. Setup Git
-: CREATE_SSH_KEY
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%04_setup_git_create_ssh_key.sh
-wsl -t %ROCKY_ENV_NAME%
-
-: SSHKEY_CONFIRMATION
-set CONFIRMATION_INPUT=
-echo Did you add SSH public key to GitHub?（%INPUT_YES% / %INPUT_NO%）
-set /P CONFIRMATION_INPUT=[input]
-if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
-    goto SSHKEY_CONFIRMATION
-)
-
-: GIT_ACCOUNT_CONFIRMATION
-set GITHUB_USER_EMAIL_BEF_AT_SIGN=
-echo Type email username part （berfore at sign） for GitHub.
-set /P GITHUB_USER_EMAIL_BEF_AT_SIGN=[input]
-set GITHUB_USER_EMAIL_AFT_AT_SIGN=
-echo Type email domain part （after at sign） for GitHub.
-set /P GITHUB_USER_EMAIL_AFT_AT_SIGN=[input]
-set GITHUB_USER_NAME=
-echo Type username for GitHub.
-set /P GITHUB_USER_NAME=[input]
-set CONFIRMATION_INPUT=
-echo Is your GitHub account information correct?（%INPUT_YES% / %INPUT_NO%）
-echo   Email: %GITHUB_USER_EMAIL%
-echo   Username: %GITHUB_USER_NAME%
-if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
-    goto GIT_ACCOUNT_CONFIRMATION
-)
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%05_setup_git_create_git_config.sh %ITHUB_USER_EMAIL_BEF_AT_SIGN% %GITHUB_USER_EMAIL_AFT_AT_SIGN% %GITHUB_USER_NAME%
-wsl -t %ROCKY_ENV_NAME%
-
-: GIT_SETUP_WORKSPACE
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%06_setup_git_setup_workspace.sh
-wsl -t %ROCKY_ENV_NAME%
-
-echo **************************************************
-echo STEP9. Setup Ansible
-: SETUP_ANSIBLE
-set IS_OLD_ROCKY=
-echo Is this Rocky environment older than 9?（%INPUT_YES% / %INPUT_NO%）
-set /P IS_OLD_ROCKY=[input]
-if %CONFIRMATION_INPUT% == %INPUT_YES% (
-    set PIP_URL=https://bootstrap.pypa.io/pip/3.6/get-pip.py
-) else (
-    set PIP_URL=https://bootstrap.pypa.io/get-pip.py
-)
-
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%07_setup_ansible.sh %PIP_URL%
-wsl -t %ROCKY_ENV_NAME%
-
-echo **************************************************
 echo Finish:
-echo Setup finished.
-echo Run "wsl -d %ROCKY_ENV_NAME%" to login.
+echo Rocky import finished. Run ./02_init_rocky.bat next.
 echo **************************************************
 
 endlocal
 pause
 exit
-
