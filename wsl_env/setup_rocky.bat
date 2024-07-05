@@ -165,9 +165,11 @@ if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
     goto GIT_ACCOUNT_CONFIRMATION
 )
 wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%05_setup_git_create_git_config.sh %ITHUB_USER_EMAIL_BEF_AT_SIGN% %GITHUB_USER_EMAIL_AFT_AT_SIGN% %GITHUB_USER_NAME%
+wsl -t %ROCKY_ENV_NAME%
 
 : GIT_SETUP_WORKSPACE
 wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%06_setup_git_setup_workspace.sh
+wsl -t %ROCKY_ENV_NAME%
 
 echo **************************************************
 echo STEP9. Setup Ansible
