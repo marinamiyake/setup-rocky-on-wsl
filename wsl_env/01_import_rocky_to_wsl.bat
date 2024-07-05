@@ -20,8 +20,7 @@ set WORKDIR=%USERPROFILE%\%WSL_SETUP_TOOL_NAME%\
 
 set VM_DIR=%WORKDIR%vm\
 set SRC_DIR_NAME=src
-set SRC_DIR=%WORKDIR%%SRC_DIR_NAME%\
-set ROCKY_IMG_DIR=%SRC_DIR%rocky_image\
+set ROCKY_IMG_DIR=%WORKDIR%%SRC_DIR_NAME%\rocky_image\
 
 set INPUT_YES=Y
 set INPUT_NO=N
@@ -86,25 +85,17 @@ if NOT exist %ROCKY_IMG_PATH% (
 )
 
 echo **************************************************
-echo STEP1_3. Set username for new Rocky environment.
-: SET_ROCKY_USER_NAME
-set ROCKY_USER_NAME=
-echo Type username（default regular user's name）for new Rocky environment.
-set /P ROCKY_USER_NAME=[input] 
-
-echo **************************************************
-echo STEP1_4. Import Rocky to WSL
+echo STEP1_3. Import Rocky to WSL
 : SET_ROCKY_IMG_FILE
 set CONFIRMATION_INPUT=
 echo Import Rocky to WSL. To continue, type %INPUT_YES%.
 echo   Environment name: %ROCKY_ENV_NAME%
 echo   Machine path: %ROCKY_MACHINE_PATH%
 echo   Rocky image file path: %ROCKY_IMG_PATH%
-echo   Username: %ROCKY_USER_NAME%
 set /P CONFIRMATION_INPUT=[input]
 
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
-    echo Cencel setup.
+    echo Setup cancelled.
     pause
     exit
 )
