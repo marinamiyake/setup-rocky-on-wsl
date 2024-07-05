@@ -1,6 +1,5 @@
 chcp 65001
 @echo off
-
 setlocal
 
 @REM ----- For your info -----
@@ -45,7 +44,6 @@ if NOT %CURRENT_DIR% == %WORKDIR% (
 echo **************************************************
 echo STEP1_1. Set new Rocky environment name
 : SET_ROCKY_ENV_NAME
-
 echo Current environment list（You cannot use the same name）:
 echo ================================================================================
 wsl -l -v
@@ -106,7 +104,7 @@ echo   Username: %ROCKY_USER_NAME%
 set /P CONFIRMATION_INPUT=[input]
 
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
-    echo Exit setup.
+    echo Cencel setup.
     pause
     exit
 )
@@ -114,7 +112,8 @@ wsl --import %ROCKY_ENV_NAME% %ROCKY_MACHINE_PATH% %ROCKY_IMG_PATH% --version 2
 
 echo **************************************************
 echo Finish:
-echo Rocky import finished. Run ./02_init_rocky.bat next.
+echo Rocky import finished. 
+echo Run ./02_init_rocky.bat next.
 echo **************************************************
 
 endlocal

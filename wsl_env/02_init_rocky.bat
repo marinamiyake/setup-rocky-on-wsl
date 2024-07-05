@@ -1,6 +1,5 @@
 chcp 65001
 @echo off
-
 setlocal
 
 @REM ----- constants -----
@@ -48,11 +47,10 @@ wsl -t %ROCKY_ENV_NAME%
 
 echo **************************************************
 echo Finish:
-echo Rocky init finished. Run ./03_setup_rocky_workspace.bat next.
-echo Run "wsl -d %ROCKY_ENV_NAME%" to login.
+echo Rocky init finished.
+echo Run ./03_setup_rocky_workspace.bat next.
 echo **************************************************
 
 endlocal
 pause
 exit
-

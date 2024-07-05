@@ -1,6 +1,5 @@
 chcp 65001
 @echo off
-
 setlocal
 
 @REM ----- constants -----
@@ -15,7 +14,6 @@ set ROCKY_SETUP_SCRIPT_UNIX_DIR=./%SRC_DIR_NAME%/script/
 set INPUT_YES=Y
 set INPUT_NO=N
 @REM --------------------
-
 
 @REM **************************************************
 @REM STEP0. Select Rocky environment to setup
@@ -42,23 +40,22 @@ if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
 )
 
 : GIT_ACCOUNT_CONFIRMATION
-set GITHUB_USER_EMAIL_BEF_AT_SIGN=
-echo Type email username part （berfore at sign） for GitHub.
-set /P GITHUB_USER_EMAIL_BEF_AT_SIGN=[input]
-set GITHUB_USER_EMAIL_AFT_AT_SIGN=
-echo Type email domain part （after at sign） for GitHub.
-set /P GITHUB_USER_EMAIL_AFT_AT_SIGN=[input]
+set GITHUB_USER_EMAIL=
+echo Type email for GitHub.
+set /P GITHUB_USER_EMAIL=[input]
 set GITHUB_USER_NAME=
 echo Type username for GitHub.
 set /P GITHUB_USER_NAME=[input]
+
 set CONFIRMATION_INPUT=
 echo Is your GitHub account information correct?（%INPUT_YES% / %INPUT_NO%）
 echo   Email: %GITHUB_USER_EMAIL%
 echo   Username: %GITHUB_USER_NAME%
+set /P CONFIRMATION_INPUT=[input]
 if NOT %CONFIRMATION_INPUT% == %INPUT_YES% (
     goto GIT_ACCOUNT_CONFIRMATION
 )
-wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%05_setup_git_create_git_config.sh %ITHUB_USER_EMAIL_BEF_AT_SIGN% %GITHUB_USER_EMAIL_AFT_AT_SIGN% %GITHUB_USER_NAME%
+wsl -d %ROCKY_ENV_NAME% %ROCKY_SETUP_SCRIPT_UNIX_DIR%05_setup_git_create_git_config.sh %GITHUB_USER_EMAIL% %GITHUB_USER_NAME%
 wsl -t %ROCKY_ENV_NAME%
 
 : GIT_SETUP_WORKSPACE
@@ -89,4 +86,3 @@ echo **************************************************
 endlocal
 pause
 exit
-
