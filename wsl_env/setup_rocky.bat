@@ -176,7 +176,7 @@ echo STEP9. Setup Ansible
 : SETUP_ANSIBLE
 set IS_OLD_ROCKY=
 echo Is this Rocky environment older than 9?（%INPUT_YES% / %INPUT_NO%）
-set /P GITHUB_USER_EMAIL=[input]
+set /P IS_OLD_ROCKY=[input]
 if %CONFIRMATION_INPUT% == %INPUT_YES% (
     set PIP_URL=https://bootstrap.pypa.io/pip/3.6/get-pip.py
 ) else (
