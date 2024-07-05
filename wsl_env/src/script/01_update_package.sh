@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# Show current directory (start directory=unset, user=unset)
-echo --------------------
-echo current user: 
-whoami
-echo current directory: 
-pwd
-echo --------------------
-
 # Add proxy setting to yum config file. Modify if you use proxy.
 cat <<EOF >> /etc/yum.conf
 

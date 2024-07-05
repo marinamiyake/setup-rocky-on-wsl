@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# Show current directory (start directory=~(changed after .bashrc file was loaded), user=created user(specified by /etc/wsl.conf))
-echo --------------------
-echo current user: 
-whoami
-echo current directory: 
-pwd
-echo --------------------
-
 # Install git
 sudo yum -y install git
 
